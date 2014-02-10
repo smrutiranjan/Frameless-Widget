@@ -1,8 +1,8 @@
 <?php
 /*
 Plugin Name: Frameless Widget
-Plugin URI: http://smrutiranjan.in/Frameless-widget/
-Description: This is a custom widget allow to execute custom search form widget. you can <a href="http://smrwebsolutions.com/frameless-widget.zip">download </a>the latest file from <a href="http://smrwebsolutions.com/frameless-widget.zip">here</a> for upgrade the plugin.
+Plugin URI: https://github.com/smrutiranjan/Frameless-Widget
+Description: This is a custom widget allow to execute custom search form widget. you can <a href="https://github.com/smrutiranjan/Frameless-Widget/archive/master.zip">download </a>the latest file from <a href="https://github.com/smrutiranjan/Frameless-Widget/archive/master.zip">here</a> for upgrade the plugin.
 Author: Smrutiranjan
 Author URI: http://smrutiranjan.in
 Version: 0.4
