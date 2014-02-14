@@ -672,6 +672,15 @@ vertical-align:middle;
 	
 	delete_option( 'form3_css');
 	add_option( 'form3_css',$layout3, '', 'yes' ); 
+	
+	delete_option('form1_wg_bg_color');
+	add_option( 'form1_wg_bg_color','#026CD6', '', 'yes' ); 
+	
+	delete_option('form2_wg_bg_color');
+	add_option( 'form2_wg_bg_color','#ea6420', '', 'yes' ); 
+	
+	delete_option('form3_wg_bg_color');
+	add_option( 'form3_wg_bg_color','#1966a5', '', 'yes' ); 
 }
 
 function Frameless_widget_init(){
@@ -731,6 +740,11 @@ function frameless_widget_setting_urls() {
 			delete_option( 'form1_css');
 			add_option( 'form1_css',$_POST["form1_css"], '', 'yes' ); 
 		}
+		if(isset($_POST["form1_wg_bg_color"]))
+		{
+			delete_option( 'form1_wg_bg_color');
+			add_option( 'form1_wg_bg_color',$_POST["form1_wg_bg_color"], '', 'yes' ); 
+		}
 		$msg="Setting has been saved successfully.";
 	}
 	?>
@@ -743,6 +757,7 @@ function frameless_widget_setting_urls() {
             <div class="pea_admin_main_left">
             <form method="post" action="" name="form1" enctype="multipart/form-data">
             	<p>Upload header image&nbsp;&nbsp;&nbsp;<input type="file" name="form1_header_img"/>&nbsp;<a href="<?php echo plugins_url( 'frameless-widget/upload/'.get_option( 'form1_header_img') , dirname(__FILE__) );?>" target="_blank">Preview</a></p>                
+                <p>Set Widget Background Color&nbsp;&nbsp;&nbsp;<input type="text" name="form1_wg_bg_color" value="<?php echo get_option('form1_wg_bg_color');?>"/></p>
                 <p>Stylesheet</p>
                 <p><textarea name="form1_css" class="regular-text csstxt"><?php echo stripslashes(get_option('form1_css'));?></textarea></p>
                 <p class="submit">
@@ -780,6 +795,11 @@ function set_layout2() {
 			delete_option( 'form2_css');
 			add_option( 'form2_css',$_POST["form2_css"], '', 'yes' ); 
 		}
+		if(isset($_POST["form2_wg_bg_color"]))
+		{
+			delete_option( 'form2_wg_bg_color');
+			add_option( 'form2_wg_bg_color',$_POST["form2_wg_bg_color"], '', 'yes' ); 
+		}
 		$msg="Setting has been saved successfully.";
 	}
 	?>
@@ -793,6 +813,7 @@ function set_layout2() {
             <div class="pea_admin_main_left">
              <form method="post" action="" name="form1" enctype="multipart/form-data">
             	<p>Upload header image&nbsp;&nbsp;&nbsp;<input type="file" name="form2_header_img"/>&nbsp;<a href="<?php echo plugins_url( 'frameless-widget/upload/'.get_option( 'form2_header_img') , dirname(__FILE__) );?>" target="_blank">Preview</a></p>      
+                 <p>Set Widget Background Color&nbsp;&nbsp;&nbsp;<input type="text" name="form2_wg_bg_color" value="<?php echo get_option('form2_wg_bg_color');?>"/></p>
                 <p>Stylesheet</p>
                 <p><textarea name="form2_css" class="regular-text csstxt"><?php echo stripslashes(get_option('form2_css'));?></textarea></p>
                 <p class="submit">
@@ -829,6 +850,11 @@ function set_layout3() {
 			delete_option( 'form3_css');
 			add_option( 'form3_css',$_POST["form3_css"], '', 'yes' ); 
 		}
+		if(isset($_POST["form3_wg_bg_color"]))
+		{
+			delete_option( 'form3_wg_bg_color');
+			add_option( 'form3_wg_bg_color',$_POST["form3_wg_bg_color"], '', 'yes' ); 
+		}
 		$msg="Setting has been saved successfully.";
 	}
 	?>
@@ -842,6 +868,7 @@ function set_layout3() {
             <div class="pea_admin_main_left">
              <form method="post" action="" name="form3" enctype="multipart/form-data">
             	<p>Upload header image&nbsp;&nbsp;&nbsp;<input type="file" name="form3_header_img"/>&nbsp;<a href="<?php echo plugins_url( 'frameless-widget/upload/'.get_option( 'form3_header_img') , dirname(__FILE__) );?>" target="_blank">Preview</a></p>      
+                 <p>Set Widget Background Color&nbsp;&nbsp;&nbsp;<input type="text" name="form3_wg_bg_color" value="<?php echo get_option('form3_wg_bg_color');?>"/></p>
                 <p>Stylesheet</p>
                 <p><textarea name="form3_css" class="regular-text csstxt"><?php echo stripslashes(get_option('form3_css'));?></textarea></p>
                 <p class="submit">
