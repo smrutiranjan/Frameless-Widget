@@ -9,14 +9,12 @@ Version: 0.4
 Text Domain: Frameless-widget
 */
 
-define('Frameless_WIDGET_TEXT_DOMAIN','Frameless_widget');
+define('Frameless_WIDGET_TEXT_DOMAIN','frameless_widget');
 define("PLUGIN_NAME","Frameless Widget");
 define("PLUGIN_TAGLINE","Customize your widget setting");
-
 register_activation_hook(__FILE__,'frameless_widget_install');
-
+		
 require_once('class-Frameless-widget.php');
-
 function frameless_widget_install()
 {
 	$layout1='
@@ -715,26 +713,31 @@ function frameless_widget_setting() {
 	add_menu_page( 'Frameless Widget', 'Frameless Widget', 'manage_options', 'set_layout1', 'frameless_widget_setting_urls'); 		
 	add_submenu_page('set_layout1', __( 'Layout2', 'frameless_widget'), __( 'Layout2', 'frameless_widget' ), 'manage_options', 'set_layout2', 'set_layout2');
 	add_submenu_page('set_layout1', __( 'Layout3', 'frameless_widget'), __( 'Layout3', 'frameless_widget' ), 'manage_options', 'set_layout3', 'set_layout3');
+	add_submenu_page('set_layout1', __( 'Language', 'frameless_widget'), __( 'Language', 'frameless_widget' ), 'manage_options', 'set_lang', 'set_lang');
 }
 function frameless_widget_setting_urls() {
 	$msg='';
 	if(isset($_POST['save'])){	
 		$allowedExts = array("gif", "jpeg", "jpg", "png");
-		$temp = explode(".", $_FILES["form1_header_img"]["name"]);
-		$extension = end($temp);
-		if(($_FILES["form1_header_img"]["size"] < 200000) && in_array($extension, $allowedExts))
+		$filenamearr=array('form1_header_img_en','form1_header_img_ge','form1_header_img_fr','form1_header_img_du');
+		foreach($filenamearr as $filename)
 		{
-			if ($_FILES["form1_header_img"]["error"] > 0)
+			$temp = explode(".", $_FILES[$filename]["name"]);
+			$extension = end($temp);
+			if(($_FILES[$filename]["size"] < 200000) && in_array($extension, $allowedExts))
 			{
-				$msg="Error while uploading file";
+				if ($_FILES[$filename]["error"] > 0)
+				{
+					$msg="Error while uploading file";
+				}
+				else
+				{
+					 move_uploaded_file($_FILES[$filename]["tmp_name"],plugin_dir_path( __FILE__ )."/upload/" . $_FILES[$filename]["name"]);
+					 delete_option( $filename);
+					 add_option( $filename,$_FILES[$filename]["name"], '', 'yes' );
+				}
 			}
-			else
-			{
-				 move_uploaded_file($_FILES["form1_header_img"]["tmp_name"],plugin_dir_path( __FILE__ )."/upload/" . $_FILES["form1_header_img"]["name"]);
-				 delete_option( 'form1_header_img');
-				 add_option( 'form1_header_img',$_FILES["form1_header_img"]["name"], '', 'yes' );
-			}
-		}
+		}		
 		if(isset($_POST["form1_css"]))
 		{
 			delete_option( 'form1_css');
@@ -756,7 +759,14 @@ function frameless_widget_setting_urls() {
         <div class="pea_admin_main_wrap">
             <div class="pea_admin_main_left">
             <form method="post" action="" name="form1" enctype="multipart/form-data">
-            	<p>Upload header image&nbsp;&nbsp;&nbsp;<input type="file" name="form1_header_img"/>&nbsp;<a href="<?php echo plugins_url( 'frameless-widget/upload/'.get_option( 'form1_header_img') , dirname(__FILE__) );?>" target="_blank">Preview</a></p>                
+            	<p>Upload header image for english&nbsp;&nbsp;&nbsp;<input type="file" name="form1_header_img_en"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form1_header_img_en') , __FILE__ );?>" target="_blank">Preview</a></p>    
+                
+                <p>Upload header image for german&nbsp;&nbsp;&nbsp;<input type="file" name="form1_header_img_ge"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form1_header_img_ge') , __FILE__ );?>" target="_blank">Preview</a></p>    
+                
+                <p>Upload header image for france&nbsp;&nbsp;&nbsp;<input type="file" name="form1_header_img_fr"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form1_header_img_fr') , __FILE__ );?>" target="_blank">Preview</a></p> 
+                
+                 <p>Upload header image for netherland&nbsp;&nbsp;&nbsp;<input type="file" name="form1_header_img_du"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form1_header_img_du') , __FILE__ );?>" target="_blank">Preview</a></p>    
+                            
                 <p>Set Widget Background Color&nbsp;&nbsp;&nbsp;<input type="text" name="form1_wg_bg_color" value="<?php echo get_option('form1_wg_bg_color');?>"/></p>
                 <p>Stylesheet</p>
                 <p><textarea name="form1_css" class="regular-text csstxt"><?php echo stripslashes(get_option('form1_css'));?></textarea></p>
@@ -773,23 +783,28 @@ function set_layout2() {
 	$msg='';
 
 	if(isset($_POST['save'])){		
-		$allowedExts = array("gif", "jpeg", "jpg", "png");
-		$temp = explode(".", $_FILES["form2_header_img"]["name"]);
-		$extension = end($temp);
+		$allowedExts = array("gif", "jpeg", "jpg", "png");		
 		
-		if(($_FILES["form2_header_img"]["size"] < 200000) && in_array($extension, $allowedExts))
+		$filenamearr=array('form2_header_img_en','form2_header_img_ge','form2_header_img_fr','form2_header_img_du');
+		foreach($filenamearr as $filename)
 		{
-			if ($_FILES["form2_header_img"]["error"] > 0)
+			$temp = explode(".", $_FILES[$filename]["name"]);
+			$extension = end($temp);
+			if(($_FILES[$filename]["size"] < 200000) && in_array($extension, $allowedExts))
 			{
-				$msg="Error while uploading file";
+				if ($_FILES[$filename]["error"] > 0)
+				{
+					$msg="Error while uploading file";
+				}
+				else
+				{
+					 move_uploaded_file($_FILES[$filename]["tmp_name"],plugin_dir_path( __FILE__ )."/upload/" . $_FILES[$filename]["name"]);
+					 delete_option( $filename);
+					 add_option( $filename,$_FILES[$filename]["name"], '', 'yes' );
+				}
 			}
-			else
-			{
-				 move_uploaded_file($_FILES["form2_header_img"]["tmp_name"],plugin_dir_path( __FILE__ )."/upload/" . $_FILES["form2_header_img"]["name"]);
-				 delete_option( 'form2_header_img');
-				 add_option( 'form2_header_img',$_FILES["form2_header_img"]["name"], '', 'yes' );
-			}
-		}
+		}		
+		
 		if(isset($_POST["form2_css"]))
 		{
 			delete_option( 'form2_css');
@@ -812,7 +827,14 @@ function set_layout2() {
         <div class="pea_admin_main_wrap">
             <div class="pea_admin_main_left">
              <form method="post" action="" name="form1" enctype="multipart/form-data">
-            	<p>Upload header image&nbsp;&nbsp;&nbsp;<input type="file" name="form2_header_img"/>&nbsp;<a href="<?php echo plugins_url( 'frameless-widget/upload/'.get_option( 'form2_header_img') , dirname(__FILE__) );?>" target="_blank">Preview</a></p>      
+            	<p>Upload header image for english&nbsp;&nbsp;&nbsp;<input type="file" name="form2_header_img_en"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form2_header_img_en') , __FILE__ );?>" target="_blank">Preview</a></p>    
+                
+                <p>Upload header image for german&nbsp;&nbsp;&nbsp;<input type="file" name="form2_header_img_ge"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form2_header_img_ge') , __FILE__ );?>" target="_blank">Preview</a></p>    
+                
+                <p>Upload header image for france&nbsp;&nbsp;&nbsp;<input type="file" name="form2_header_img_fr"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form2_header_img_fr') , __FILE__ );?>" target="_blank">Preview</a></p> 
+                
+                 <p>Upload header image for netherland&nbsp;&nbsp;&nbsp;<input type="file" name="form2_header_img_du"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form2_header_img_du') , __FILE__ );?>" target="_blank">Preview</a></p>    
+                    
                  <p>Set Widget Background Color&nbsp;&nbsp;&nbsp;<input type="text" name="form2_wg_bg_color" value="<?php echo get_option('form2_wg_bg_color');?>"/></p>
                 <p>Stylesheet</p>
                 <p><textarea name="form2_css" class="regular-text csstxt"><?php echo stripslashes(get_option('form2_css'));?></textarea></p>
@@ -829,22 +851,25 @@ function set_layout3() {
 	$msg='';
 	if(isset($_POST['save'])){		
 		$allowedExts = array("gif", "jpeg", "jpg", "png");
-		$temp = explode(".", $_FILES["form3_header_img"]["name"]);
-		$extension = end($temp);
-		
-		if(($_FILES["form3_header_img"]["size"] < 200000) && in_array($extension, $allowedExts))
+		$filenamearr=array('form3_header_img_en','form3_header_img_ge','form3_header_img_fr','form3_header_img_du');
+		foreach($filenamearr as $filename)
 		{
-			if ($_FILES["form3_header_img"]["error"] > 0)
+			$temp = explode(".", $_FILES[$filename]["name"]);
+			$extension = end($temp);
+			if(($_FILES[$filename]["size"] < 200000) && in_array($extension, $allowedExts))
 			{
-				$msg="Error while uploading file";
+				if ($_FILES[$filename]["error"] > 0)
+				{
+					$msg="Error while uploading file";
+				}
+				else
+				{
+					 move_uploaded_file($_FILES[$filename]["tmp_name"],plugin_dir_path( __FILE__ )."/upload/" . $_FILES[$filename]["name"]);
+					 delete_option( $filename);
+					 add_option( $filename,$_FILES[$filename]["name"], '', 'yes' );
+				}
 			}
-			else
-			{
-				 move_uploaded_file($_FILES["form3_header_img"]["tmp_name"],plugin_dir_path( __FILE__ )."/upload/" . $_FILES["form3_header_img"]["name"]);
-				 delete_option( 'form3_header_img');
-				 add_option( 'form3_header_img',$_FILES["form3_header_img"]["name"], '', 'yes' );
-			}
-		}
+		}	
 		if(isset($_POST["form3_css"]))
 		{
 			delete_option( 'form3_css');
@@ -867,7 +892,13 @@ function set_layout3() {
         <div class="pea_admin_main_wrap">
             <div class="pea_admin_main_left">
              <form method="post" action="" name="form3" enctype="multipart/form-data">
-            	<p>Upload header image&nbsp;&nbsp;&nbsp;<input type="file" name="form3_header_img"/>&nbsp;<a href="<?php echo plugins_url( 'frameless-widget/upload/'.get_option( 'form3_header_img') , dirname(__FILE__) );?>" target="_blank">Preview</a></p>      
+            	<p>Upload header image for english&nbsp;&nbsp;&nbsp;<input type="file" name="form3_header_img_en"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form3_header_img_en') , __FILE__ );?>" target="_blank">Preview</a></p>    
+                
+                <p>Upload header image for german&nbsp;&nbsp;&nbsp;<input type="file" name="form3_header_img_ge"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form3_header_img_ge') , __FILE__ );?>" target="_blank">Preview</a></p>    
+                
+                <p>Upload header image for france&nbsp;&nbsp;&nbsp;<input type="file" name="form3_header_img_fr"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form3_header_img_fr') , __FILE__ );?>" target="_blank">Preview</a></p> 
+                
+                 <p>Upload header image for netherland&nbsp;&nbsp;&nbsp;<input type="file" name="form3_header_img_du"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form3_header_img_du') , __FILE__ );?>" target="_blank">Preview</a></p>  
                  <p>Set Widget Background Color&nbsp;&nbsp;&nbsp;<input type="text" name="form3_wg_bg_color" value="<?php echo get_option('form3_wg_bg_color');?>"/></p>
                 <p>Stylesheet</p>
                 <p><textarea name="form3_css" class="regular-text csstxt"><?php echo stripslashes(get_option('form3_css'));?></textarea></p>
@@ -879,5 +910,139 @@ function set_layout3() {
 		</div>            
     </div>
     <?php
+}
+function set_lang()
+{
+	$msg='';
+	if(isset($_POST['save'])){			
+		
+		$postarr=array('pickuplocation_en','pickupdate_en','dropofflocation_en','dropoffdate_en','pickuplocation_da','pickupdate_da','dropofflocation_da','dropoffdate_da','pickuplocation_fr','pickupdate_fr','dropofflocation_fr','dropoffdate_fr','pickuplocation_du','pickupdate_du','dropofflocation_du','dropoffdate_du');
+		foreach($postarr as $value)
+		{
+			if($_POST[$value]!="")
+			{
+				delete_option($value);
+				add_option( $value,$_POST[$value], '', 'yes' );
+				//echo $value.'=>'.$_POST[$value]."<br/>";
+			}			
+		}
+		$msg="Setting has been saved successfully.";
+	}
+	?>
+    <div class="pea_admin_wrap">
+        <div class="pea_admin_top">
+            <h1><?php echo PLUGIN_NAME ?> <small> - set language</small></h1>
+        </div>
+ 		<?php if($msg!=""){ echo '<div class="msg">'.$msg.'</div>';}?>
+
+        <div class="pea_admin_main_wrap">
+            <div class="pea_admin_main_left">
+             <form method="post" action="" name="setlangform">
+             <table cellpadding="2" cellspacing="2" border="0" width="100%">
+             <tr>
+             	<td align="left"><table width="100%" border="0" cellspacing="3" cellpadding="3">
+  <tr>
+    <td colspan="2" align="left"><h2>English</h2></td>
+  </tr>
+  <tr>
+    <td>Pickup Location</td>
+    <td>
+    <input type="text"  name="pickuplocation_en" value="<?php echo get_option("pickuplocation_en");?>" class="regular-text"/>
+    </td>
+  </tr>
+  <tr>
+    <td>Pickup Date</td>
+    <td><input type="text"  name="pickupdate_en" value="<?php echo get_option("pickupdate_en");?>" class="regular-text"/></td>
+  </tr>
+   <tr>
+    <td>Dropoff Location</td>
+    <td><input type="text"  name="dropofflocation_en" value="<?php echo get_option("dropofflocation_en");?>" class="regular-text"/></td>
+  </tr>
+  <tr>
+    <td>Dropoff Date</td>
+    <td><input type="text"  name="dropoffdate_en" value="<?php echo get_option("dropoffdate_en");?>" class="regular-text"/></td>
+  </tr>
+</table></td>
+                <td align="right"><table width="100%" border="0" cellspacing="3" cellpadding="3">
+  <tr>
+    <td colspan="2" align="left"><h2>German</h2></td>
+  </tr>
+  <tr>
+    <td>Pickup Location</td>
+    <td>
+    <input type="text"  name="pickuplocation_da" value="<?php echo get_option("pickuplocation_da");?>" class="regular-text"/>
+    </td>
+  </tr>
+  <tr>
+    <td>Pickup Date</td>
+    <td><input type="text"  name="pickupdate_da" value="<?php echo get_option("pickupdate_da");?>" class="regular-text"/></td>
+  </tr>
+   <tr>
+    <td>Dropoff Location</td>
+    <td><input type="text"  name="dropofflocation_da" value="<?php echo get_option("dropofflocation_da");?>" class="regular-text"/></td>
+  </tr>
+  <tr>
+    <td>Dropoff Date</td>
+    <td><input type="text"  name="dropoffdate_da" value="<?php echo get_option("dropoffdate_da");?>" class="regular-text"/></td>
+  </tr>
+</table></td>
+             </tr>
+			<tr>
+            	<td align="left"><table width="100%" border="0" cellspacing="3" cellpadding="3">
+  <tr>
+    <td colspan="2" align="left"><h2>French</h2></td>
+  </tr>
+  <tr>
+    <td>Pickup Location</td>
+    <td>
+    <input type="text"  name="pickuplocation_fr" value="<?php echo get_option("pickuplocation_fr");?>" class="regular-text"/>
+    </td>
+  </tr>
+  <tr>
+    <td>Pickup Date</td>
+    <td><input type="text"  name="pickupdate_fr" value="<?php echo get_option("pickupdate_fr");?>" class="regular-text"/></td>
+  </tr>
+   <tr>
+    <td>Dropoff Location</td>
+    <td><input type="text"  name="dropofflocation_fr" value="<?php echo get_option("dropofflocation_fr");?>" class="regular-text"/></td>
+  </tr>
+  <tr>
+    <td>Dropoff Date</td>
+    <td><input type="text"  name="dropoffdate_fr" value="<?php echo get_option("dropoffdate_fr");?>" class="regular-text"/></td>
+  </tr>
+</table></td>
+                <td align="right"><table width="100%" border="0" cellspacing="3" cellpadding="3">
+                  <tr>
+                    <td colspan="2" align="left"><h2>Netherlands</h2></td>
+                  </tr>
+                  <tr>
+                    <td>Pickup Location</td>
+                    <td>
+                    <input type="text"  name="pickuplocation_du" value="<?php echo get_option("pickuplocation_du");?>" class="regular-text"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Pickup Date</td>
+                    <td><input type="text"  name="pickupdate_du" value="<?php echo get_option("pickupdate_du");?>" class="regular-text"/></td>
+                  </tr>
+                   <tr>
+                    <td>Dropoff Location</td>
+                    <td><input type="text"  name="dropofflocation_du" value="<?php echo get_option("dropofflocation_du");?>" class="regular-text"/></td>
+                  </tr>
+                  <tr>
+                    <td>Dropoff Date</td>
+                    <td><input type="text"  name="dropoffdate_du" value="<?php echo get_option("dropoffdate_du");?>" class="regular-text"/></td>
+                  </tr>
+                </table></td>
+            </tr>
+                </table>
+                <p class="submit">
+                    <input type="submit" class="button-primary" value="<?php _e('Save Language Seting') ?>" name="save"/>
+                </p>
+			</form>            
+            </div>
+		</div>            
+    </div>
+<?php    
 }
 ?>
