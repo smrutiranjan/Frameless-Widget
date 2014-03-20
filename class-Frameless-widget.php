@@ -2,7 +2,7 @@
 /**
  * Frameless Widget Class
  *
- * @since 0.1
+ * @since 1.1
  */
 class Frameless_Widget extends WP_Widget {
 
@@ -187,7 +187,7 @@ class Frameless_Widget extends WP_Widget {
             </script>           
             <div class="textwidget" id="frameless_widget_section">
             <div class="clear5"></div>
-            <div class="frameless_widget_div" data-role="content" style="background:<?php echo get_option('form1_wg_bg_color');?>;border:2px solid <?php echo get_option('form1_wg_bg_color');?>">
+            <div class="frameless_widget_div" data-role="content" style="background-image:url('<?php echo plugins_url('/upload/'.get_option( 'form1_wg_bg_img') , __FILE__ );?>');background-color:<?php echo get_option('form1_wg_bg_color');?>;border:2px solid <?php echo get_option('form1_wg_bg_color');?>">
                 <div class="form1">
                 <form target="_blank" id="theform" action="https://secure.rentalcarmanager.com.au/ssl/AUTravelWheels107/bondi/webstep2.asp?refid=&amp;URL=" name="theform" method="post">				
                 <?php
@@ -205,11 +205,7 @@ class Frameless_Widget extends WP_Widget {
                 <option value="9">Perth &nbsp;</option>
                 <option selected="selected" value="1">Sydney &nbsp;</option>
                 </select>    <div class="clear5"></div>
-                <label><?php echo $pickupdate_lvl;?></label><div class="clear2"></div>
-                <div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset ui-shadow ui-btn-up-c"> <input  type="text" id="txtStartDate" data-theme="a" value="<?php echo date("d/m/Y",strtotime("+2 day"));?>"/><input  type="hidden" id="txtStartDate_div"/></div>
-        	</div>
-       		<div class="col col-2">               
-            	<label><?php echo $dropofflocation_lvl;?></label><div class="clear2"></div>
+               	<label><?php echo $dropofflocation_lvl;?></label><div class="clear2"></div>
                 <select name="DropoffLocationID" id="DropoffLocationID">               
                    <option value="Same" selected="selected">Same As Pickup</option>
                    <option value="28">Adelaide &nbsp;</option>
@@ -220,6 +216,10 @@ class Frameless_Widget extends WP_Widget {
                    <option value="9">Perth &nbsp;</option>
                    <option value="1">Sydney &nbsp;</option>
                 </select>
+        	</div>
+       		<div class="col col-2">   
+                 <label><?php echo $pickupdate_lvl;?></label><div class="clear2"></div>
+                <div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset ui-shadow ui-btn-up-c"> <input  type="text" id="txtStartDate" data-theme="a" value="<?php echo date("d/m/Y",strtotime("+2 day"));?>"/><input  type="hidden" id="txtStartDate_div"/></div>
        			 <div class="clear5"></div>
          		<label><?php echo $dropoffdate_lvl;?></label><div class="clear2"></div>
            		<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset ui-shadow ui-btn-up-c"><input type="text" id="txtEndDate" data-role="date" value="<?php echo date("d/m/Y",strtotime("+16 day"));?>"/><input type="hidden" id="txtEndDate_div"/></div>        
@@ -362,7 +362,7 @@ class Frameless_Widget extends WP_Widget {
             </script>
             <div class="textwidget" id="frameless_widget_section">
             <div class="clear5"></div>
-            <div class="frameless_widget_div"  style="background:<?php echo get_option('form2_wg_bg_color');?>;border:2px solid <?php echo get_option('form2_wg_bg_color');?>">
+            <div class="frameless_widget_div" style="background-image:url('<?php echo plugins_url('/upload/'.get_option( 'form2_wg_bg_img') , __FILE__ );?>');background-color:<?php echo get_option('form2_wg_bg_color');?>;border:2px solid <?php echo get_option('form2_wg_bg_color');?>">
                <form target="_blank" id="theform" action="https://secure.rentalcarmanager.com.au/ssl/AUTravelWheels107/bondi/webstep2.asp?refid=&amp;URL=" name="theform" method="post">
     	 <?php
 				if($headerimgurl!=""){?>
@@ -520,7 +520,7 @@ class Frameless_Widget extends WP_Widget {
             </script>
             <div class="textwidget" id="frameless_widget_section">
             <div class="clear5"></div>
-            <div class="frameless_widget_div"  style="background:<?php echo get_option('form3_wg_bg_color');?>;border:2px solid <?php echo get_option('form3_wg_bg_color');?>">
+           <div class="frameless_widget_div" style="background-image:url('<?php echo plugins_url('/upload/'.get_option( 'form3_wg_bg_img') , __FILE__ );?>');background-color:<?php echo get_option('form3_wg_bg_color');?>;border:2px solid <?php echo get_option('form3_wg_bg_color');?>">
                 <form target="_blank" id="theform" action="https://secure.rentalcarmanager.com.au/ssl/AUTravelWheels107/bondi/webstep2.asp?refid=&amp;URL=" name="theform" method="post" onsubmit="updatefield();">
     	<?php
 				if($headerimgurl!=""){?>

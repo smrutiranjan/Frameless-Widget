@@ -5,7 +5,7 @@ Plugin URI: https://github.com/smrutiranjan/Frameless-Widget
 Description: This is a custom widget allow to execute custom search form widget. you can <a href="https://github.com/smrutiranjan/Frameless-Widget/archive/master.zip">download </a>the latest file from <a href="https://github.com/smrutiranjan/Frameless-Widget/archive/master.zip">here</a> for upgrade the plugin.
 Author: Smrutiranjan
 Author URI: http://smrutiranjan.in
-Version: 0.4
+Version: 1.1
 Text Domain: Frameless-widget
 */
 
@@ -679,6 +679,26 @@ vertical-align:middle;
 	
 	delete_option('form3_wg_bg_color');
 	add_option( 'form3_wg_bg_color','#1966a5', '', 'yes' ); 
+	
+	delete_option('form1_header_img_en');
+	add_option('form1_header_img_en',plugins_url('/upload/headlogo.png', __FILE__ ), '', 'yes' );
+	
+	delete_option('form2_header_img_en');
+	add_option('form2_header_img_en',plugins_url('/upload/headlogo.png', __FILE__ ), '', 'yes' );
+	
+	delete_option('form3_header_img_en');
+	add_option('form3_wg_bg_img',plugins_url('/upload/headlogo.png', __FILE__ ), '', 'yes' );
+	
+	
+	delete_option('form1_wg_bg_img');
+	add_option( 'form1_wg_bg_img',plugins_url('/upload/026081-572-TA.jpg', __FILE__ ), '', 'yes' ); 
+	
+	delete_option('form2_wg_bg_img');
+	add_option( 'form2_wg_bg_img',plugins_url('/upload/026081-572-TA.jpg', __FILE__ ), '', 'yes' ); 
+	
+	delete_option('form3_wg_bg_img');
+	add_option( 'form3_wg_bg_img',plugins_url('/upload/026081-572-TA.jpg', __FILE__ ), '', 'yes' ); 
+	
 }
 
 function Frameless_widget_init(){
@@ -719,7 +739,7 @@ function frameless_widget_setting_urls() {
 	$msg='';
 	if(isset($_POST['save'])){	
 		$allowedExts = array("gif", "jpeg", "jpg", "png");
-		$filenamearr=array('form1_header_img_en','form1_header_img_ge','form1_header_img_fr','form1_header_img_du');
+		$filenamearr=array('form1_wg_bg_img','form1_header_img_en','form1_header_img_ge','form1_header_img_fr','form1_header_img_du');
 		foreach($filenamearr as $filename)
 		{
 			$temp = explode(".", $_FILES[$filename]["name"]);
@@ -768,6 +788,7 @@ function frameless_widget_setting_urls() {
                  <p>Upload header image for netherland&nbsp;&nbsp;&nbsp;<input type="file" name="form1_header_img_du"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form1_header_img_du') , __FILE__ );?>" target="_blank">Preview</a></p>    
                             
                 <p>Set Widget Background Color&nbsp;&nbsp;&nbsp;<input type="text" name="form1_wg_bg_color" value="<?php echo get_option('form1_wg_bg_color');?>"/></p>
+                <p>Set Widget Background Image&nbsp;&nbsp;&nbsp;<input type="file" name="form1_wg_bg_img" />&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form1_wg_bg_img') , __FILE__ );?>" target="_blank">Preview</a></p>    
                 <p>Stylesheet</p>
                 <p><textarea name="form1_css" class="regular-text csstxt"><?php echo stripslashes(get_option('form1_css'));?></textarea></p>
                 <p class="submit">
@@ -785,7 +806,7 @@ function set_layout2() {
 	if(isset($_POST['save'])){		
 		$allowedExts = array("gif", "jpeg", "jpg", "png");		
 		
-		$filenamearr=array('form2_header_img_en','form2_header_img_ge','form2_header_img_fr','form2_header_img_du');
+		$filenamearr=array('form2_wg_bg_img','form2_header_img_en','form2_header_img_ge','form2_header_img_fr','form2_header_img_du');
 		foreach($filenamearr as $filename)
 		{
 			$temp = explode(".", $_FILES[$filename]["name"]);
@@ -836,6 +857,7 @@ function set_layout2() {
                  <p>Upload header image for netherland&nbsp;&nbsp;&nbsp;<input type="file" name="form2_header_img_du"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form2_header_img_du') , __FILE__ );?>" target="_blank">Preview</a></p>    
                     
                  <p>Set Widget Background Color&nbsp;&nbsp;&nbsp;<input type="text" name="form2_wg_bg_color" value="<?php echo get_option('form2_wg_bg_color');?>"/></p>
+                  <p>Set Widget Background Image&nbsp;&nbsp;&nbsp;<input type="file" name="form2_wg_bg_img" />&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form2_wg_bg_img') , __FILE__ );?>" target="_blank">Preview</a></p> 
                 <p>Stylesheet</p>
                 <p><textarea name="form2_css" class="regular-text csstxt"><?php echo stripslashes(get_option('form2_css'));?></textarea></p>
                 <p class="submit">
@@ -851,7 +873,7 @@ function set_layout3() {
 	$msg='';
 	if(isset($_POST['save'])){		
 		$allowedExts = array("gif", "jpeg", "jpg", "png");
-		$filenamearr=array('form3_header_img_en','form3_header_img_ge','form3_header_img_fr','form3_header_img_du');
+		$filenamearr=array('form3_wg_bg_img','form3_header_img_en','form3_header_img_ge','form3_header_img_fr','form3_header_img_du');
 		foreach($filenamearr as $filename)
 		{
 			$temp = explode(".", $_FILES[$filename]["name"]);
@@ -900,6 +922,7 @@ function set_layout3() {
                 
                  <p>Upload header image for netherland&nbsp;&nbsp;&nbsp;<input type="file" name="form3_header_img_du"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form3_header_img_du') , __FILE__ );?>" target="_blank">Preview</a></p>  
                  <p>Set Widget Background Color&nbsp;&nbsp;&nbsp;<input type="text" name="form3_wg_bg_color" value="<?php echo get_option('form3_wg_bg_color');?>"/></p>
+                  <p>Set Widget Background Image&nbsp;&nbsp;&nbsp;<input type="file" name="form3_wg_bg_img" />&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form3_wg_bg_img') , __FILE__ );?>" target="_blank">Preview</a></p> 
                 <p>Stylesheet</p>
                 <p><textarea name="form3_css" class="regular-text csstxt"><?php echo stripslashes(get_option('form3_css'));?></textarea></p>
                 <p class="submit">
@@ -914,8 +937,8 @@ function set_layout3() {
 function set_lang()
 {
 	$msg='';
-	if(isset($_POST['save'])){			
-		
+	if(isset($_POST['save']))
+	{					
 		$postarr=array('pickuplocation_en','pickupdate_en','dropofflocation_en','dropoffdate_en','pickuplocation_da','pickupdate_da','dropofflocation_da','dropoffdate_da','pickuplocation_fr','pickupdate_fr','dropofflocation_fr','dropoffdate_fr','pickuplocation_du','pickupdate_du','dropofflocation_du','dropoffdate_du');
 		foreach($postarr as $value)
 		{
@@ -941,76 +964,76 @@ function set_lang()
              <table cellpadding="2" cellspacing="2" border="0" width="100%">
              <tr>
              	<td align="left"><table width="100%" border="0" cellspacing="3" cellpadding="3">
-  <tr>
-    <td colspan="2" align="left"><h2>English</h2></td>
-  </tr>
-  <tr>
-    <td>Pickup Location</td>
-    <td>
-    <input type="text"  name="pickuplocation_en" value="<?php echo get_option("pickuplocation_en");?>" class="regular-text"/>
-    </td>
-  </tr>
-  <tr>
-    <td>Pickup Date</td>
-    <td><input type="text"  name="pickupdate_en" value="<?php echo get_option("pickupdate_en");?>" class="regular-text"/></td>
-  </tr>
-   <tr>
-    <td>Dropoff Location</td>
-    <td><input type="text"  name="dropofflocation_en" value="<?php echo get_option("dropofflocation_en");?>" class="regular-text"/></td>
-  </tr>
-  <tr>
-    <td>Dropoff Date</td>
-    <td><input type="text"  name="dropoffdate_en" value="<?php echo get_option("dropoffdate_en");?>" class="regular-text"/></td>
-  </tr>
-</table></td>
-                <td align="right"><table width="100%" border="0" cellspacing="3" cellpadding="3">
-  <tr>
-    <td colspan="2" align="left"><h2>German</h2></td>
-  </tr>
-  <tr>
-    <td>Pickup Location</td>
-    <td>
-    <input type="text"  name="pickuplocation_da" value="<?php echo get_option("pickuplocation_da");?>" class="regular-text"/>
-    </td>
-  </tr>
-  <tr>
-    <td>Pickup Date</td>
-    <td><input type="text"  name="pickupdate_da" value="<?php echo get_option("pickupdate_da");?>" class="regular-text"/></td>
-  </tr>
-   <tr>
-    <td>Dropoff Location</td>
-    <td><input type="text"  name="dropofflocation_da" value="<?php echo get_option("dropofflocation_da");?>" class="regular-text"/></td>
-  </tr>
-  <tr>
-    <td>Dropoff Date</td>
-    <td><input type="text"  name="dropoffdate_da" value="<?php echo get_option("dropoffdate_da");?>" class="regular-text"/></td>
-  </tr>
-</table></td>
+              <tr>
+                <td colspan="2" align="left"><h2>English</h2></td>
+              </tr>
+              <tr>
+                <td>Pickup Location</td>
+                <td>
+                <input type="text"  name="pickuplocation_en" value="<?php echo get_option("pickuplocation_en");?>" class="regular-text"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Pickup Date</td>
+                <td><input type="text"  name="pickupdate_en" value="<?php echo get_option("pickupdate_en");?>" class="regular-text"/></td>
+              </tr>
+               <tr>
+                <td>Dropoff Location</td>
+                <td><input type="text"  name="dropofflocation_en" value="<?php echo get_option("dropofflocation_en");?>" class="regular-text"/></td>
+              </tr>
+              <tr>
+                <td>Dropoff Date</td>
+                <td><input type="text"  name="dropoffdate_en" value="<?php echo get_option("dropoffdate_en");?>" class="regular-text"/></td>
+              </tr>
+            </table></td>
+                            <td align="right"><table width="100%" border="0" cellspacing="3" cellpadding="3">
+              <tr>
+                <td colspan="2" align="left"><h2>German</h2></td>
+              </tr>
+              <tr>
+                <td>Pickup Location</td>
+                <td>
+                <input type="text"  name="pickuplocation_da" value="<?php echo get_option("pickuplocation_da");?>" class="regular-text"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Pickup Date</td>
+                <td><input type="text"  name="pickupdate_da" value="<?php echo get_option("pickupdate_da");?>" class="regular-text"/></td>
+              </tr>
+               <tr>
+                <td>Dropoff Location</td>
+                <td><input type="text"  name="dropofflocation_da" value="<?php echo get_option("dropofflocation_da");?>" class="regular-text"/></td>
+              </tr>
+              <tr>
+                <td>Dropoff Date</td>
+                <td><input type="text"  name="dropoffdate_da" value="<?php echo get_option("dropoffdate_da");?>" class="regular-text"/></td>
+              </tr>
+            </table></td>
              </tr>
 			<tr>
             	<td align="left"><table width="100%" border="0" cellspacing="3" cellpadding="3">
-  <tr>
-    <td colspan="2" align="left"><h2>French</h2></td>
-  </tr>
-  <tr>
-    <td>Pickup Location</td>
-    <td>
-    <input type="text"  name="pickuplocation_fr" value="<?php echo get_option("pickuplocation_fr");?>" class="regular-text"/>
-    </td>
-  </tr>
-  <tr>
-    <td>Pickup Date</td>
-    <td><input type="text"  name="pickupdate_fr" value="<?php echo get_option("pickupdate_fr");?>" class="regular-text"/></td>
-  </tr>
-   <tr>
-    <td>Dropoff Location</td>
-    <td><input type="text"  name="dropofflocation_fr" value="<?php echo get_option("dropofflocation_fr");?>" class="regular-text"/></td>
-  </tr>
-  <tr>
-    <td>Dropoff Date</td>
-    <td><input type="text"  name="dropoffdate_fr" value="<?php echo get_option("dropoffdate_fr");?>" class="regular-text"/></td>
-  </tr>
-</table></td>
+          <tr>
+            <td colspan="2" align="left"><h2>French</h2></td>
+          </tr>
+          <tr>
+            <td>Pickup Location</td>
+            <td>
+            <input type="text"  name="pickuplocation_fr" value="<?php echo get_option("pickuplocation_fr");?>" class="regular-text"/>
+            </td>
+          </tr>
+          <tr>
+            <td>Pickup Date</td>
+            <td><input type="text"  name="pickupdate_fr" value="<?php echo get_option("pickupdate_fr");?>" class="regular-text"/></td>
+          </tr>
+           <tr>
+            <td>Dropoff Location</td>
+            <td><input type="text"  name="dropofflocation_fr" value="<?php echo get_option("dropofflocation_fr");?>" class="regular-text"/></td>
+          </tr>
+          <tr>
+            <td>Dropoff Date</td>
+            <td><input type="text"  name="dropoffdate_fr" value="<?php echo get_option("dropoffdate_fr");?>" class="regular-text"/></td>
+          </tr>
+        </table></td>
                 <td align="right"><table width="100%" border="0" cellspacing="3" cellpadding="3">
                   <tr>
                     <td colspan="2" align="left"><h2>Netherlands</h2></td>
