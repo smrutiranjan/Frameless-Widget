@@ -182,8 +182,19 @@ class Frameless_Widget extends WP_Widget {
 				var droparr=enddate.split("/");
 				document.getElementById('DropoffDay').value=droparr[0];
 				document.getElementById('DropoffMonth').value=droparr[1];
-				document.getElementById('DropoffYear').value=droparr[2];            
+				document.getElementById('DropoffYear').value=droparr[2]; 
+				if(myTrim(document.getElementById('txtStartDate').value) == "" || myTrim(document.getElementById('txtEndDate').value) == "" )
+				{
+					alert("please enter the start date & end date of your travel.");
+					return false;
+				}
+				else
+				{
+					document.getElementById('theform').submit();
+				}
             }
+			function myTrim(x){return x.replace(/^\s+|\s+$/gm,'');}
+			
             </script>           
             <div class="textwidget" id="frameless_widget_section">
             <div class="clear5"></div>
@@ -225,7 +236,7 @@ class Frameless_Widget extends WP_Widget {
            		<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset ui-shadow ui-btn-up-c"><input type="text" id="txtEndDate" data-role="date" value="<?php echo date("d/m/Y",strtotime("+16 day"));?>"/><input type="hidden" id="txtEndDate_div"/></div>        
          		<div class="clear5"></div>
          		<input type="hidden" value="9" name="CategoryTypeID"/>
-		<img border="0" oldsrc="<?php echo plugins_url( 'search.png' ,__FILE__ );?>" srcover="<?php echo plugins_url( 'search_ho.png' ,__FILE__);?>" src="<?php echo plugins_url( 'search.png' , __FILE__ );?>" onclick="updatefield();document.getElementById('theform').submit();" style="box-shadow:none;border:none;border-radius:none;"/>
+		<img border="0" oldsrc="<?php echo plugins_url( 'search.png' ,__FILE__ );?>" srcover="<?php echo plugins_url( 'search_ho.png' ,__FILE__);?>" src="<?php echo plugins_url( 'search.png' , __FILE__ );?>" onclick="return updatefield();" style="box-shadow:none;border:none;border-radius:none;"/>
          <!--<input value="Search" data-theme="b" type="submit" style="width:100%" class="ui-button ui-widget ui-state-default ui-corner-all"/-->
          <input type="hidden" name="PickupDay" id="PickupDay"/><input type="hidden" name="PickupMonth" id="PickupMonth"/><input type="hidden" name="PickupYear" id="PickupYear"/>
          <input type="hidden" name="DropoffDay" id="DropoffDay"/><input type="hidden" name="DropoffMonth" id="DropoffMonth"/><input type="hidden" name="DropoffYear" id="DropoffYear"/>
