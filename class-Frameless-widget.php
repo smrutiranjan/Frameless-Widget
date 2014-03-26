@@ -25,6 +25,10 @@ class Frameless_Widget extends WP_Widget {
 			$dropofflocation_lvl=get_option("dropofflocation_en");
 			$dropoffdate_lvl=get_option("dropoffdate_en");
 			$headerimgurl=plugins_url('/upload/'.get_option( 'form'.$text.'_header_img_en'), __FILE__);
+			$searchbtn=plugins_url('/upload/'.get_option( 'form'.$text.'_searchbtn_en'), __FILE__);
+			$searchbtn_ho=plugins_url('/upload/'.get_option( 'form'.$text.'_searchbtn_ho_en'), __FILE__);
+			$samepickup_lvl=get_option("samepickup_en");
+			
 		}
 		elseif($setlang == 'ge')
 		{
@@ -33,6 +37,9 @@ class Frameless_Widget extends WP_Widget {
 			$dropofflocation_lvl=get_option("dropofflocation_da");
 			$dropoffdate_lvl=get_option("dropoffdate_da");
 			$headerimgurl=plugins_url('/upload/'.get_option( 'form'.$text.'_header_img_ge'), __FILE__);
+			$searchbtn=plugins_url('/upload/'.get_option( 'form'.$text.'_searchbtn_ge'), __FILE__);
+			$searchbtn_ho=plugins_url('/upload/'.get_option( 'form'.$text.'_searchbtn_ho_ge'), __FILE__);
+			$samepickup_lvl=get_option("samepickup_ge");
 		}
 		elseif($setlang == 'fr')
 		{
@@ -40,7 +47,10 @@ class Frameless_Widget extends WP_Widget {
 			$pickupdate_lvl=get_option("pickupdate_fr");
 			$dropofflocation_lvl=get_option("dropofflocation_fr");
 			$dropoffdate_lvl=get_option("dropoffdate_fr");
-				$headerimgurl=plugins_url('/upload/'.get_option( 'form'.$text.'_header_img_fr'), __FILE__);
+			$headerimgurl=plugins_url('/upload/'.get_option( 'form'.$text.'_header_img_fr'), __FILE__);
+			$searchbtn=plugins_url('/upload/'.get_option( 'form'.$text.'_searchbtn_fr'), __FILE__);
+			$searchbtn_ho=plugins_url('/upload/'.get_option( 'form'.$text.'_searchbtn_ho_fr'), __FILE__);
+			$samepickup_lvl=get_option("samepickup_fr");
 		}
 		elseif($setlang == 'du')
 		{
@@ -48,7 +58,10 @@ class Frameless_Widget extends WP_Widget {
 			$pickupdate_lvl=get_option("pickupdate_du");
 			$dropofflocation_lvl=get_option("dropofflocation_du");
 			$dropoffdate_lvl=get_option("dropoffdate_du");
-				$headerimgurl=plugins_url('/upload/'.get_option( 'form'.$text.'_header_img_du'), __FILE__);
+			$headerimgurl=plugins_url('/upload/'.get_option( 'form'.$text.'_header_img_du'), __FILE__);
+			$searchbtn=plugins_url('/upload/'.get_option( 'form'.$text.'_searchbtn_du'), __FILE__);
+			$searchbtn_ho=plugins_url('/upload/'.get_option( 'form'.$text.'_searchbtn_ho_du'), __FILE__);
+			$samepickup_lvl=get_option("samepickup_du");
 		}
 		else
 		{
@@ -56,15 +69,22 @@ class Frameless_Widget extends WP_Widget {
 			$pickupdate_lvl=get_option("pickupdate_en");
 			$dropofflocation_lvl=get_option("dropofflocation_en");
 			$dropoffdate_lvl=get_option("dropoffdate_en");
-				$headerimgurl=plugins_url('/upload/'.get_option( 'form'.$text.'_header_img_en'), __FILE__);
+			$headerimgurl=plugins_url('/upload/'.get_option( 'form'.$text.'_header_img_en'), __FILE__);
+			$searchbtn=plugins_url('/upload/'.get_option( 'form'.$text.'_searchbtn_en'), __FILE__);
+			$searchbtn_ho=plugins_url('/upload/'.get_option( 'form'.$text.'_searchbtn_ho_en'), __FILE__);
+			$samepickup_lvl=get_option("samepickup_en");
 		}
-		if($text == 1){$this->form1($setlang,$title,$headerimgurl,$pickuplocation_lvl,$pickupdate_lvl,$dropofflocation_lvl,$dropoffdate_lvl);}
-		if($text == 2){$this->form2($setlang,$title,$headerimgurl,$pickuplocation_lvl,$pickupdate_lvl,$dropofflocation_lvl,$dropoffdate_lvl);}
-		if($text == 3){$this->form3($setlang,$title,$headerimgurl,$pickuplocation_lvl,$pickupdate_lvl,$dropofflocation_lvl,$dropoffdate_lvl);}
+		if($text == 1){$this->form1($setlang,$title,$headerimgurl,$pickuplocation_lvl,$pickupdate_lvl,$dropofflocation_lvl,$dropoffdate_lvl,$samepickup_lvl,$searchbtn_ho,$searchbtn);}
+		if($text == 2){$this->form2($setlang,$title,$headerimgurl,$pickuplocation_lvl,$pickupdate_lvl,$dropofflocation_lvl,$dropoffdate_lvl,$samepickup_lvl);}
+		if($text == 3){$this->form3($setlang,$title,$headerimgurl,$pickuplocation_lvl,$pickupdate_lvl,$dropofflocation_lvl,$dropoffdate_lvl,$samepickup_lvl);}
         echo $after_widget;
         }
-	function form1($lang,$title,$headerimgurl,$pickuplocation_lvl,$pickupdate_lvl,$dropofflocation_lvl,$dropoffdate_lvl)
+	function form1($lang,$title,$headerimgurl,$pickuplocation_lvl,$pickupdate_lvl,$dropofflocation_lvl,$dropoffdate_lvl,$samepickup_lvl,$searchbtn_ho,$searchbtn)
 	{
+		if(get_option( 'form1_wg_bg_stat') == 'enabled')
+		{
+			$backstyle='background-image:url('.plugins_url('/upload/'.get_option( 'form1_wg_bg_img') , __FILE__ ).');';
+		}
 		?>
 		  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css" />
           <link type="text/css" rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
@@ -198,7 +218,7 @@ class Frameless_Widget extends WP_Widget {
             </script>           
             <div class="textwidget" id="frameless_widget_section">
             <div class="clear5"></div>
-            <div class="frameless_widget_div" data-role="content" style="background-image:url('<?php echo plugins_url('/upload/'.get_option( 'form1_wg_bg_img') , __FILE__ );?>');background-color:<?php echo get_option('form1_wg_bg_color');?>;border:2px solid <?php echo get_option('form1_wg_bg_color');?>">
+            <div class="frameless_widget_div" data-role="content" style="<?php echo $backstyle; ?>background-color:<?php echo get_option('form1_wg_bg_color');?>;border:2px solid <?php echo get_option('form1_wg_bg_color');?>">
                 <div class="form1">
                 <form target="_blank" id="theform" action="https://secure.rentalcarmanager.com.au/ssl/AUTravelWheels107/bondi/webstep2.asp?refid=&amp;URL=" name="theform" method="post">				
                 <?php
@@ -218,7 +238,7 @@ class Frameless_Widget extends WP_Widget {
                 </select>    <div class="clear5"></div>
                	<label><?php echo $dropofflocation_lvl;?></label><div class="clear2"></div>
                 <select name="DropoffLocationID" id="DropoffLocationID">               
-                   <option value="Same" selected="selected">Same As Pickup</option>
+                   <option value="Same" selected="selected"><?php echo $samepickup_lvl;?></option>
                    <option value="28">Adelaide &nbsp;</option>
                    <option value="33">Brisbane &nbsp;</option>
                    <option value="36">Cairns &nbsp;</option>
@@ -236,7 +256,7 @@ class Frameless_Widget extends WP_Widget {
            		<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset ui-shadow ui-btn-up-c"><input type="text" id="txtEndDate" data-role="date" value="<?php echo date("d/m/Y",strtotime("+16 day"));?>"/><input type="hidden" id="txtEndDate_div"/></div>        
          		<div class="clear5"></div>
          		<input type="hidden" value="9" name="CategoryTypeID"/>
-		<img border="0" oldsrc="<?php echo plugins_url( 'search.png' ,__FILE__ );?>" srcover="<?php echo plugins_url( 'search_ho.png' ,__FILE__);?>" src="<?php echo plugins_url( 'search.png' , __FILE__ );?>" onclick="return updatefield();" style="box-shadow:none;border:none;border-radius:none;"/>
+		<img border="0" oldsrc="<?php echo $searchbtn;?>" srcover="<?php echo $searchbtn_ho;?>" src="<?php echo $searchbtn;?>" onclick="return updatefield();" style="box-shadow:none;border:none;border-radius:none;"/>
          <!--<input value="Search" data-theme="b" type="submit" style="width:100%" class="ui-button ui-widget ui-state-default ui-corner-all"/-->
          <input type="hidden" name="PickupDay" id="PickupDay"/><input type="hidden" name="PickupMonth" id="PickupMonth"/><input type="hidden" name="PickupYear" id="PickupYear"/>
          <input type="hidden" name="DropoffDay" id="DropoffDay"/><input type="hidden" name="DropoffMonth" id="DropoffMonth"/><input type="hidden" name="DropoffYear" id="DropoffYear"/>
@@ -249,7 +269,7 @@ class Frameless_Widget extends WP_Widget {
 			</div>
         <?php
 	}
-	function form2($lang,$title,$headerimgurl,$pickuplocation_lvl,$pickupdate_lvl,$dropofflocation_lvl,$dropoffdate_lvl)
+	function form2($lang,$title,$headerimgurl,$pickuplocation_lvl,$pickupdate_lvl,$dropofflocation_lvl,$dropoffdate_lvl,$samepickup_lvl)
 	{
 		?>
        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.css" />
@@ -396,7 +416,7 @@ class Frameless_Widget extends WP_Widget {
         <label><strong>STEP3:RETURNING</strong> </label>
         <div class="clear5"></div>
             <select name="DropoffLocationID" id="DropoffLocationID" data-mini="true" class="sel"> 
-               <option value="Same" selected="selected">Same As Pickup</option>
+               <option value="Same" selected="selected"><?php echo $samepickup_lvl;?></option>
                <option value="28">Adelaide &nbsp;</option>
                <option value="33">Brisbane &nbsp;</option>
                <option value="36">Cairns &nbsp;</option>
@@ -422,7 +442,7 @@ class Frameless_Widget extends WP_Widget {
 		</div>
         <?php
 	}
-	function form3($lang,$title,$headerimgurl,$pickuplocation_lvl,$pickupdate_lvl,$dropofflocation_lvl,$dropoffdate_lvl)
+	function form3($lang,$title,$headerimgurl,$pickuplocation_lvl,$pickupdate_lvl,$dropofflocation_lvl,$dropoffdate_lvl,$samepickup_lvl)
 	{
 		?>
         	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.css" />

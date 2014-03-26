@@ -662,42 +662,62 @@ h1{
 vertical-align:middle;
 }';
 	
-	delete_option( 'form1_css');
-	add_option( 'form1_css',$layout1, '', 'yes' ); 
-	
-	delete_option( 'form2_css');
-	add_option( 'form2_css',$layout2, '', 'yes' ); 
-	
-	delete_option( 'form3_css');
-	add_option( 'form3_css',$layout3, '', 'yes' ); 
-	
-	delete_option('form1_wg_bg_color');
-	add_option( 'form1_wg_bg_color','#026CD6', '', 'yes' ); 
-	
-	delete_option('form2_wg_bg_color');
-	add_option( 'form2_wg_bg_color','#ea6420', '', 'yes' ); 
-	
-	delete_option('form3_wg_bg_color');
-	add_option( 'form3_wg_bg_color','#1966a5', '', 'yes' ); 
-	
-	delete_option('form1_header_img_en');
-	add_option('form1_header_img_en','headlogo.png', '', 'yes' );
-	
-	delete_option('form2_header_img_en');
-	add_option('form2_header_img_en','headlogo.png', '', 'yes' );
-	
-	delete_option('form3_header_img_en');
-	add_option('form3_wg_bg_img','headlogo.png', '', 'yes' );
-	
-	
-	delete_option('form1_wg_bg_img');
-	add_option( 'form1_wg_bg_img','026081-572-TA.jpg', '', 'yes' ); 
-	
-	delete_option('form2_wg_bg_img');
-	add_option( 'form2_wg_bg_img','026081-572-TA.jpg', '', 'yes' ); 
-	
-	delete_option('form3_wg_bg_img');
-	add_option( 'form3_wg_bg_img','026081-572-TA.jpg', '', 'yes' ); 
+	$optionarr=array('form1_css'=>$layout1,
+					 'form2_css'=>$layout2,
+					 'form3_css'=>$layout3,
+					 'form1_wg_bg_color'=>'#026CD6',
+					 'form2_wg_bg_color'=>'#ea6420',
+					 'form3_wg_bg_color'=>'#1966a5',
+					 'form1_wg_bg_img'=>'widget-background.jpg','form2_wg_bg_img'=>'widget-background.jpg','form3_wg_bg_img'=>'widget-background.jpg',
+					 'form1_wg_bg_stat'=>'disabled','form2_wg_bg_stat'=>'disabled','form3_wg_bg_stat'=>'disabled',
+					 
+					 'form1_header_img_en'=>'headlogo.png','form2_header_img_en'=>'headlogo.png','form3_header_img_en'=>'headlogo.png',
+					 
+					 'form1_header_img_ge'=>'headlogo-ge.png','form2_header_img_ge'=>'headlogo-ge.png','form3_header_img_ge'=>'headlogo-ge.png',
+					 'form1_header_img_fr'=>'headlogo-fr.png','form2_header_img_fr'=>'headlogo-fr.png','form3_header_img_fr'=>'headlogo-fr.png',
+					 'form1_header_img_du'=>'headlogo-du.png','form2_header_img_du'=>'headlogo-du.png','form3_header_img_du'=>'headlogo-du.png',
+					 'form1_searchbtn_en'=>'search.png','form2_searchbtn_en'=>'search.png','form3_searchbtn_en'=>'search.png',
+					 
+					 'form1_searchbtn_ho_en'=>'search_ho.png','form2_searchbtn_ho_en'=>'search_ho.png','form3_searchbtn_ho_en'=>'search_ho.png',
+					 'form1_searchbtn_ge'=>'search_ge.png','form2_searchbtn_ge'=>'search_ge.png','form3_searchbtn_ge'=>'search_ge.png',
+					 
+					 'form1_searchbtn_ho_ge'=>'search_ge_ho.png','form2_searchbtn_ho_ge'=>'search_ge_ho.png','form3_searchbtn_ho_ge'=>'search_ge_ho.png',
+					 'form1_searchbtn_fr'=>'search_fr.png','form2_searchbtn_fr'=>'search_fr.png','form3_searchbtn_fr'=>'search_fr.png',
+					 
+					 'form1_searchbtn_ho_fr'=>'search_fr_ho.png','form2_searchbtn_ho_fr'=>'search_fr_ho.png','form3_searchbtn_ho_fr'=>'search_fr_ho.png',
+					 
+					'form1_searchbtn_du'=>'search_du.png','form2_searchbtn_du'=>'search_du.png','form3_searchbtn_du'=>'search_du.png',
+					
+					'form1_searchbtn_ho_du'=>'search_du_ho.png','form2_searchbtn_ho_du'=>'search_du_ho.png','form3_searchbtn_ho_du'=>'search_du_ho.png',
+					'pickuplocation_en'=>'Pickup Location',
+					'pickupdate_en'=>'Pickup Date',
+					'dropofflocation_en'=>'Dropoff Location',			
+					'dropoffdate_en'=>'Dropoff Date',
+					'samepickup_en'=>'Same Pickup',
+					
+					'pickuplocation_da'=>'Abholort',
+					'pickupdate_da'=>'Abholdatum',
+					'dropofflocation_da'=>'Rückgabestation',
+					'dropoffdate_da'=>'Dropoff Date',
+					'samepickup_da'=>'Same Pickup',
+
+					'pickuplocation_fr'=>'Lieu de départ',
+					'pickupdate_fr'=>'Date de départ',
+					'dropofflocation_fr'=>'Lieu de retour',
+					'dropoffdate_fr'=>'Date de retour',
+					'samepickup_fr'=>'Même lieu de départ et retour',
+
+					'pickuplocation_du'=>'Abholdatum',
+					'pickupdate_du'=>'Abholdatum',
+					'dropofflocation_du'=>'Rückgabestation',
+					'dropoffdate_du'=>'Dropoff Date',
+					'samepickup_du'=>'Same Pickup'
+);
+	foreach($optionarr as $ky => $value)
+	{
+		delete_option($ky);
+		add_option($ky,$value, '', 'yes' );
+	}
 	
 }
 
@@ -738,8 +758,9 @@ function frameless_widget_setting() {
 function frameless_widget_setting_urls() {
 	$msg='';
 	if(isset($_POST['save'])){	
-		$allowedExts = array("gif", "jpeg", "jpg", "png");
-		$filenamearr=array('form1_wg_bg_img','form1_header_img_en','form1_header_img_ge','form1_header_img_fr','form1_header_img_du');
+		$allowedExts = array("gif", "jpeg", "jpg", "png");		
+		
+		$filenamearr=array('form1_wg_bg_img','form1_header_img_en','form1_header_img_ge','form1_header_img_fr','form1_header_img_du','form1_searchbtn_en','form1_searchbtn_ho_en','form1_searchbtn_ge','form1_searchbtn_ho_ge','form1_searchbtn_fr','form1_searchbtn_ho_fr','form1_searchbtn_du','form1_searchbtn_ho_du');
 		foreach($filenamearr as $filename)
 		{
 			$temp = explode(".", $_FILES[$filename]["name"]);
@@ -755,10 +776,15 @@ function frameless_widget_setting_urls() {
 					 move_uploaded_file($_FILES[$filename]["tmp_name"],plugin_dir_path( __FILE__ )."/upload/" . $_FILES[$filename]["name"]);
 					 delete_option( $filename);
 					 add_option( $filename,$_FILES[$filename]["name"], '', 'yes' );
+					 
+					 delete_option('form1_wg_bg_stat');
+					 add_option('form1_wg_bg_stat',$_POST["form1_wg_bg_stat"], '', 'yes' );
+					
 				}
 			}
 		}		
-		if(isset($_POST["form1_css"]))
+		
+		if(isset($_POST['form1_css']))
 		{
 			delete_option( 'form1_css');
 			add_option( 'form1_css',$_POST["form1_css"], '', 'yes' ); 
@@ -779,16 +805,32 @@ function frameless_widget_setting_urls() {
         <div class="pea_admin_main_wrap">
             <div class="pea_admin_main_left">
             <form method="post" action="" name="form1" enctype="multipart/form-data">
-            	<p>Upload header image for english&nbsp;&nbsp;&nbsp;<input type="file" name="form1_header_img_en"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form1_header_img_en') , __FILE__ );?>" target="_blank">Preview</a></p>    
+            	<h2>Header Logo</h2>
+                <p>Upload header image for english&nbsp;&nbsp;&nbsp;<input type="file" name="form1_header_img_en"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form1_header_img_en') , __FILE__ );?>" target="_blank">Preview</a></p>    
                 
                 <p>Upload header image for german&nbsp;&nbsp;&nbsp;<input type="file" name="form1_header_img_ge"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form1_header_img_ge') , __FILE__ );?>" target="_blank">Preview</a></p>    
                 
                 <p>Upload header image for france&nbsp;&nbsp;&nbsp;<input type="file" name="form1_header_img_fr"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form1_header_img_fr') , __FILE__ );?>" target="_blank">Preview</a></p> 
                 
                  <p>Upload header image for netherland&nbsp;&nbsp;&nbsp;<input type="file" name="form1_header_img_du"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form1_header_img_du') , __FILE__ );?>" target="_blank">Preview</a></p>    
-                            
-                <p>Set Widget Background Color&nbsp;&nbsp;&nbsp;<input type="text" name="form1_wg_bg_color" value="<?php echo get_option('form1_wg_bg_color');?>"/></p>
-                <p>Set Widget Background Image&nbsp;&nbsp;&nbsp;<input type="file" name="form1_wg_bg_img" />&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form1_wg_bg_img') , __FILE__ );?>" target="_blank">Preview</a></p>    
+                 
+                 <h2>Search Button</h2>
+                  <p>Search Button image for english&nbsp;&nbsp;&nbsp;<input type="file" name="form1_searchbtn_en"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form1_searchbtn_en') , __FILE__ );?>" target="_blank">Preview</a></p> 
+                   <p>Hover Search Button image for english&nbsp;&nbsp;&nbsp;<input type="file" name="form1_searchbtn_ho_en"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form1_searchbtn_ho_en') , __FILE__ );?>" target="_blank">Preview</a></p>    
+                
+                <p>Search Button image for german&nbsp;&nbsp;&nbsp;<input type="file" name="form1_searchbtn_ge"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form1_searchbtn_ge') , __FILE__ );?>" target="_blank">Preview</a></p>                    
+                 <p>Hover Search Button image for german&nbsp;&nbsp;&nbsp;<input type="file" name="form1_searchbtn_ho_ge"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form1_searchbtn_ho_ge') , __FILE__ );?>" target="_blank">Preview</a></p>    
+                 
+                <p>Search Button image for france&nbsp;&nbsp;&nbsp;<input type="file" name="form1_searchbtn_fr"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form1_searchbtn_fr') , __FILE__ );?>" target="_blank">Preview</a></p> 
+                 <p>Hover Search Button image for france&nbsp;&nbsp;&nbsp;<input type="file" name="form1_searchbtn_ho_fr"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form1_searchbtn_ho_fr') , __FILE__ );?>" target="_blank">Preview</a></p> 
+                
+                 <p>Search Button image for netherland&nbsp;&nbsp;&nbsp;<input type="file" name="form1_searchbtn_du"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form1_searchbtn_du') , __FILE__ );?>" target="_blank">Preview</a></p>
+                 <p>Hover Search Button image for netherland&nbsp;&nbsp;&nbsp;<input type="file" name="form1_searchbtn_ho_du"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form1_searchbtn_ho_du') , __FILE__ );?>" target="_blank">Preview</a></p> 
+                     
+                <h2>Other</h2>    
+                 <p>Set Widget Background Color&nbsp;&nbsp;&nbsp;<input type="text" name="form1_wg_bg_color" value="<?php echo get_option('form1_wg_bg_color');?>"/></p>
+                  <p>Set Widget Background Image&nbsp;&nbsp;&nbsp;<input type="file" name="form1_wg_bg_img" />&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form1_wg_bg_img') , __FILE__ );?>" target="_blank">Preview</a></p>    
+                   <p>Widget Background Image&nbsp;&nbsp;&nbsp;<input type="radio" name="form1_wg_bg_stat" value="enabled" <?php if(get_option('form1_wg_bg_stat')=='enabled'){ echo 'checked';}?>/>&nbsp;&nbsp;Enabled&nbsp;&nbsp;<input type="radio" name="form1_wg_bg_stat" value="disabled" <?php if(get_option('form1_wg_bg_stat')=='disabled'){ echo 'checked';}?>/>&nbsp;&nbsp;Disabled</p>    
                 <p>Stylesheet</p>
                 <p><textarea name="form1_css" class="regular-text csstxt"><?php echo stripslashes(get_option('form1_css'));?></textarea></p>
                 <p class="submit">
@@ -803,10 +845,10 @@ function frameless_widget_setting_urls() {
 function set_layout2() {
 	$msg='';
 
-	if(isset($_POST['save'])){		
+	if(isset($_POST['save'])){	
 		$allowedExts = array("gif", "jpeg", "jpg", "png");		
 		
-		$filenamearr=array('form2_wg_bg_img','form2_header_img_en','form2_header_img_ge','form2_header_img_fr','form2_header_img_du');
+		$filenamearr=array('form2_wg_bg_img','form2_header_img_en','form2_header_img_ge','form2_header_img_fr','form2_header_img_du','form2_searchbtn_en','form2_searchbtn_ho_en','form2_searchbtn_ge','form2_searchbtn_ho_ge','form2_searchbtn_fr','form2_searchbtn_ho_fr','form2_searchbtn_du','form2_searchbtn_ho_du');
 		foreach($filenamearr as $filename)
 		{
 			$temp = explode(".", $_FILES[$filename]["name"]);
@@ -822,11 +864,15 @@ function set_layout2() {
 					 move_uploaded_file($_FILES[$filename]["tmp_name"],plugin_dir_path( __FILE__ )."/upload/" . $_FILES[$filename]["name"]);
 					 delete_option( $filename);
 					 add_option( $filename,$_FILES[$filename]["name"], '', 'yes' );
+					 
+					 delete_option('form2_wg_bg_stat');
+					 add_option('form2_wg_bg_stat',$_POST["form2_wg_bg_stat"], '', 'yes' );
+					
 				}
 			}
 		}		
 		
-		if(isset($_POST["form2_css"]))
+		if(isset($_POST['form2_css']))
 		{
 			delete_option( 'form2_css');
 			add_option( 'form2_css',$_POST["form2_css"], '', 'yes' ); 
@@ -848,16 +894,32 @@ function set_layout2() {
         <div class="pea_admin_main_wrap">
             <div class="pea_admin_main_left">
              <form method="post" action="" name="form1" enctype="multipart/form-data">
-            	<p>Upload header image for english&nbsp;&nbsp;&nbsp;<input type="file" name="form2_header_img_en"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form2_header_img_en') , __FILE__ );?>" target="_blank">Preview</a></p>    
+            	<h2>Header Logo</h2>
+                <p>Upload header image for english&nbsp;&nbsp;&nbsp;<input type="file" name="form2_header_img_en"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form2_header_img_en') , __FILE__ );?>" target="_blank">Preview</a></p>    
                 
                 <p>Upload header image for german&nbsp;&nbsp;&nbsp;<input type="file" name="form2_header_img_ge"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form2_header_img_ge') , __FILE__ );?>" target="_blank">Preview</a></p>    
                 
                 <p>Upload header image for france&nbsp;&nbsp;&nbsp;<input type="file" name="form2_header_img_fr"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form2_header_img_fr') , __FILE__ );?>" target="_blank">Preview</a></p> 
                 
                  <p>Upload header image for netherland&nbsp;&nbsp;&nbsp;<input type="file" name="form2_header_img_du"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form2_header_img_du') , __FILE__ );?>" target="_blank">Preview</a></p>    
-                    
+                 
+                 <h2>Search Button</h2>
+                  <p>Search Button image for english&nbsp;&nbsp;&nbsp;<input type="file" name="form2_searchbtn_en"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form2_searchbtn_en') , __FILE__ );?>" target="_blank">Preview</a></p> 
+                   <p>Hover Search Button image for english&nbsp;&nbsp;&nbsp;<input type="file" name="form2_searchbtn_ho_en"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form2_searchbtn_ho_en') , __FILE__ );?>" target="_blank">Preview</a></p>    
+                
+                <p>Search Button image for german&nbsp;&nbsp;&nbsp;<input type="file" name="form2_searchbtn_ge"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form2_searchbtn_ge') , __FILE__ );?>" target="_blank">Preview</a></p>                    
+                 <p>Hover Search Button image for german&nbsp;&nbsp;&nbsp;<input type="file" name="form2_searchbtn_ho_ge"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form2_searchbtn_ho_ge') , __FILE__ );?>" target="_blank">Preview</a></p>    
+                 
+                <p>Search Button image for france&nbsp;&nbsp;&nbsp;<input type="file" name="form2_searchbtn_fr"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form2_searchbtn_fr') , __FILE__ );?>" target="_blank">Preview</a></p> 
+                 <p>Hover Search Button image for france&nbsp;&nbsp;&nbsp;<input type="file" name="form2_searchbtn_ho_fr"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form2_searchbtn_ho_fr') , __FILE__ );?>" target="_blank">Preview</a></p> 
+                
+                 <p>Search Button image for netherland&nbsp;&nbsp;&nbsp;<input type="file" name="form2_searchbtn_du"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form2_searchbtn_du') , __FILE__ );?>" target="_blank">Preview</a></p>
+                 <p>Hover Search Button image for netherland&nbsp;&nbsp;&nbsp;<input type="file" name="form2_searchbtn_ho_du"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form2_searchbtn_ho_du') , __FILE__ );?>" target="_blank">Preview</a></p> 
+                     
+                <h2>Other</h2>    
                  <p>Set Widget Background Color&nbsp;&nbsp;&nbsp;<input type="text" name="form2_wg_bg_color" value="<?php echo get_option('form2_wg_bg_color');?>"/></p>
-                  <p>Set Widget Background Image&nbsp;&nbsp;&nbsp;<input type="file" name="form2_wg_bg_img" />&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form2_wg_bg_img') , __FILE__ );?>" target="_blank">Preview</a></p> 
+                  <p>Set Widget Background Image&nbsp;&nbsp;&nbsp;<input type="file" name="form2_wg_bg_img" />&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form2_wg_bg_img') , __FILE__ );?>" target="_blank">Preview</a></p>    
+                   <p>Widget Background Image&nbsp;&nbsp;&nbsp;<input type="radio" name="form2_wg_bg_stat" value="enabled" <?php if(get_option('form2_wg_bg_stat')=='enabled'){ echo 'checked';}?>/>&nbsp;&nbsp;Enabled&nbsp;&nbsp;<input type="radio" name="form2_wg_bg_stat" value="disabled" <?php if(get_option('form2_wg_bg_stat')=='disabled'){ echo 'checked';}?>/>&nbsp;&nbsp;Disabled</p>    
                 <p>Stylesheet</p>
                 <p><textarea name="form2_css" class="regular-text csstxt"><?php echo stripslashes(get_option('form2_css'));?></textarea></p>
                 <p class="submit">
@@ -871,9 +933,10 @@ function set_layout2() {
 }
 function set_layout3() {
 	$msg='';
-	if(isset($_POST['save'])){		
-		$allowedExts = array("gif", "jpeg", "jpg", "png");
-		$filenamearr=array('form3_wg_bg_img','form3_header_img_en','form3_header_img_ge','form3_header_img_fr','form3_header_img_du');
+	if(isset($_POST['save'])){	
+		$allowedExts = array("gif", "jpeg", "jpg", "png");		
+		
+		$filenamearr=array('form3_wg_bg_img','form3_header_img_en','form3_header_img_ge','form3_header_img_fr','form3_header_img_du','form3_searchbtn_en','form3_searchbtn_ho_en','form3_searchbtn_ge','form3_searchbtn_ho_ge','form3_searchbtn_fr','form3_searchbtn_ho_fr','form3_searchbtn_du','form3_searchbtn_ho_du');
 		foreach($filenamearr as $filename)
 		{
 			$temp = explode(".", $_FILES[$filename]["name"]);
@@ -889,10 +952,15 @@ function set_layout3() {
 					 move_uploaded_file($_FILES[$filename]["tmp_name"],plugin_dir_path( __FILE__ )."/upload/" . $_FILES[$filename]["name"]);
 					 delete_option( $filename);
 					 add_option( $filename,$_FILES[$filename]["name"], '', 'yes' );
+					 
+					 delete_option('form3_wg_bg_stat');
+					 add_option('form3_wg_bg_stat',$_POST["form3_wg_bg_stat"], '', 'yes' );
+					
 				}
 			}
-		}	
-		if(isset($_POST["form3_css"]))
+		}		
+		
+		if(isset($_POST['form3_css']))
 		{
 			delete_option( 'form3_css');
 			add_option( 'form3_css',$_POST["form3_css"], '', 'yes' ); 
@@ -914,15 +982,32 @@ function set_layout3() {
         <div class="pea_admin_main_wrap">
             <div class="pea_admin_main_left">
              <form method="post" action="" name="form3" enctype="multipart/form-data">
-            	<p>Upload header image for english&nbsp;&nbsp;&nbsp;<input type="file" name="form3_header_img_en"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form3_header_img_en') , __FILE__ );?>" target="_blank">Preview</a></p>    
+            	<h2>Header Logo</h2>
+                <p>Upload header image for english&nbsp;&nbsp;&nbsp;<input type="file" name="form3_header_img_en"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form3_header_img_en') , __FILE__ );?>" target="_blank">Preview</a></p>    
                 
                 <p>Upload header image for german&nbsp;&nbsp;&nbsp;<input type="file" name="form3_header_img_ge"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form3_header_img_ge') , __FILE__ );?>" target="_blank">Preview</a></p>    
                 
                 <p>Upload header image for france&nbsp;&nbsp;&nbsp;<input type="file" name="form3_header_img_fr"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form3_header_img_fr') , __FILE__ );?>" target="_blank">Preview</a></p> 
                 
-                 <p>Upload header image for netherland&nbsp;&nbsp;&nbsp;<input type="file" name="form3_header_img_du"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form3_header_img_du') , __FILE__ );?>" target="_blank">Preview</a></p>  
+                 <p>Upload header image for netherland&nbsp;&nbsp;&nbsp;<input type="file" name="form3_header_img_du"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form3_header_img_du') , __FILE__ );?>" target="_blank">Preview</a></p>    
+                 
+                 <h2>Search Button</h2>
+                  <p>Search Button image for english&nbsp;&nbsp;&nbsp;<input type="file" name="form3_searchbtn_en"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form3_searchbtn_en') , __FILE__ );?>" target="_blank">Preview</a></p> 
+                   <p>Hover Search Button image for english&nbsp;&nbsp;&nbsp;<input type="file" name="form3_searchbtn_ho_en"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form3_searchbtn_ho_en') , __FILE__ );?>" target="_blank">Preview</a></p>    
+                
+                <p>Search Button image for german&nbsp;&nbsp;&nbsp;<input type="file" name="form3_searchbtn_ge"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form3_searchbtn_ge') , __FILE__ );?>" target="_blank">Preview</a></p>                    
+                 <p>Hover Search Button image for german&nbsp;&nbsp;&nbsp;<input type="file" name="form3_searchbtn_ho_ge"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form3_searchbtn_ho_ge') , __FILE__ );?>" target="_blank">Preview</a></p>    
+                 
+                <p>Search Button image for france&nbsp;&nbsp;&nbsp;<input type="file" name="form3_searchbtn_fr"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form3_searchbtn_fr') , __FILE__ );?>" target="_blank">Preview</a></p> 
+                 <p>Hover Search Button image for france&nbsp;&nbsp;&nbsp;<input type="file" name="form3_searchbtn_ho_fr"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form3_searchbtn_ho_fr') , __FILE__ );?>" target="_blank">Preview</a></p> 
+                
+                 <p>Search Button image for netherland&nbsp;&nbsp;&nbsp;<input type="file" name="form3_searchbtn_du"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form3_searchbtn_du') , __FILE__ );?>" target="_blank">Preview</a></p>
+                 <p>Hover Search Button image for netherland&nbsp;&nbsp;&nbsp;<input type="file" name="form3_searchbtn_ho_du"/>&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form3_searchbtn_ho_du') , __FILE__ );?>" target="_blank">Preview</a></p> 
+                     
+                <h2>Other</h2>    
                  <p>Set Widget Background Color&nbsp;&nbsp;&nbsp;<input type="text" name="form3_wg_bg_color" value="<?php echo get_option('form3_wg_bg_color');?>"/></p>
-                  <p>Set Widget Background Image&nbsp;&nbsp;&nbsp;<input type="file" name="form3_wg_bg_img" />&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form3_wg_bg_img') , __FILE__ );?>" target="_blank">Preview</a></p> 
+                  <p>Set Widget Background Image&nbsp;&nbsp;&nbsp;<input type="file" name="form3_wg_bg_img" />&nbsp;<a href="<?php echo plugins_url('/upload/'.get_option( 'form3_wg_bg_img') , __FILE__ );?>" target="_blank">Preview</a></p>    
+                   <p>Widget Background Image&nbsp;&nbsp;&nbsp;<input type="radio" name="form3_wg_bg_stat" value="enabled" <?php if(get_option('form3_wg_bg_stat')=='enabled'){ echo 'checked';}?>/>&nbsp;&nbsp;Enabled&nbsp;&nbsp;<input type="radio" name="form3_wg_bg_stat" value="disabled" <?php if(get_option('form3_wg_bg_stat')=='disabled'){ echo 'checked';}?>/>&nbsp;&nbsp;Disabled</p>    
                 <p>Stylesheet</p>
                 <p><textarea name="form3_css" class="regular-text csstxt"><?php echo stripslashes(get_option('form3_css'));?></textarea></p>
                 <p class="submit">
@@ -938,8 +1023,8 @@ function set_lang()
 {
 	$msg='';
 	if(isset($_POST['save']))
-	{					
-		$postarr=array('pickuplocation_en','pickupdate_en','dropofflocation_en','dropoffdate_en','pickuplocation_da','pickupdate_da','dropofflocation_da','dropoffdate_da','pickuplocation_fr','pickupdate_fr','dropofflocation_fr','dropoffdate_fr','pickuplocation_du','pickupdate_du','dropofflocation_du','dropoffdate_du');
+	{	
+		$postarr=array('pickuplocation_en','pickupdate_en','dropofflocation_en','dropoffdate_en','pickuplocation_da','pickupdate_da','dropofflocation_da','dropoffdate_da','pickuplocation_fr','pickupdate_fr','dropofflocation_fr','dropoffdate_fr','pickuplocation_du','pickupdate_du','dropofflocation_du','dropoffdate_du','samepickup_en','samepickup_fr','samepickup_da','samepickup_du');
 		foreach($postarr as $value)
 		{
 			if($_POST[$value]!="")
@@ -985,6 +1070,11 @@ function set_lang()
                 <td>Dropoff Date</td>
                 <td><input type="text"  name="dropoffdate_en" value="<?php echo get_option("dropoffdate_en");?>" class="regular-text"/></td>
               </tr>
+                 <tr>
+            <td>Same Pickup</td>
+           <td><input type="text"  name="samepickup_en" value="<?php echo get_option("samepickup_en");?>" class="regular-text"/>
+           </td>
+          </tr>
             </table></td>
                             <td align="right"><table width="100%" border="0" cellspacing="3" cellpadding="3">
               <tr>
@@ -1008,6 +1098,11 @@ function set_lang()
                 <td>Dropoff Date</td>
                 <td><input type="text"  name="dropoffdate_da" value="<?php echo get_option("dropoffdate_da");?>" class="regular-text"/></td>
               </tr>
+                 <tr>
+            <td>Same Pickup</td>
+           <td><input type="text"  name="samepickup_da" value="<?php echo get_option("samepickup_da");?>" class="regular-text"/>
+           </td>
+          </tr>
             </table></td>
              </tr>
 			<tr>
@@ -1033,6 +1128,11 @@ function set_lang()
             <td>Dropoff Date</td>
             <td><input type="text"  name="dropoffdate_fr" value="<?php echo get_option("dropoffdate_fr");?>" class="regular-text"/></td>
           </tr>
+          <tr>
+            <td>Same Pickup</td>
+           <td><input type="text"  name="samepickup_fr" value="<?php echo get_option("samepickup_fr");?>" class="regular-text"/>
+           </td>
+          </tr>
         </table></td>
                 <td align="right"><table width="100%" border="0" cellspacing="3" cellpadding="3">
                   <tr>
@@ -1056,6 +1156,11 @@ function set_lang()
                     <td>Dropoff Date</td>
                     <td><input type="text"  name="dropoffdate_du" value="<?php echo get_option("dropoffdate_du");?>" class="regular-text"/></td>
                   </tr>
+                  <tr>
+    				<td>Same Pickup</td>
+				   <td><input type="text"  name="samepickup_du" value="<?php echo get_option("samepickup_du");?>" class="regular-text"/>
+                   </td>
+				  </tr>
                 </table></td>
             </tr>
                 </table>
